@@ -24,7 +24,7 @@ export default class NewPointPresenter {
   }
 
   init() {
-    if (this.#pointEditComponent !== null) {
+    if (this.#pointEditComponent) {
       return;
     }
 
@@ -45,7 +45,7 @@ export default class NewPointPresenter {
   }
 
   destroy() {
-    if (this.#pointEditComponent === null) {
+    if (!this.#pointEditComponent) {
       return;
     }
 

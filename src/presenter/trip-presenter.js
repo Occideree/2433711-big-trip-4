@@ -8,7 +8,7 @@ import {
   sortPointsByDuration,
   sortPointsByPrice,
   filterPoints,
-  sortPointByDay,
+  sortPointsByDay,
 } from '../utils/utils.js';
 import { SortType, UserAction, UpdateType, FilterType } from '../const.js';
 import LoadingView from '../view/loading-view.js';
@@ -18,20 +18,19 @@ const TimeLimit = {
   UPPER_LIMIT: 1000,
 };
 export default class BoardPresenter {
+  #filterType = FilterType.EVERYTHING;
+  #currentSortType = SortType.DEFAULT;
   #container = null;
   #pointsModel = null;
   #destinationsModel = null;
   #offersModel = null;
   #sortComponent = null;
-  #currentSortType = SortType.DEFAULT;
   #eventListComponent = new EventListView();
   #loadingComponent = new LoadingView();
-  #filteredPoints = {};
   #filterModel = null;
   #pointPresenters = new Map();
   #noPointComponent = null;
   #newPointPresenter = null;
-  #filterType = FilterType.EVERYTHING;
   #isLoading = true;
   #uiBlocker = new UiBlocker({
     lowerLimit: TimeLimit.LOWER_LIMIT,
@@ -69,7 +68,7 @@ export default class BoardPresenter {
     const filteredPoints = filterPoints[this.#filterType](points);
     switch (this.#currentSortType) {
       case SortType.DEFAULT:
-        return filteredPoints.sort(sortPointByDay);
+        return filteredPoints.sort(sortPointsByDay);
       case SortType.DURATION_SORT:
         return filteredPoints.sort(sortPointsByDuration);
 

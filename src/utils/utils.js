@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import { FilterType } from '../const';
 
-export function getDuration(startTime, endTime) {
+function getDuration(startTime, endTime) {
   const days = dayjs(endTime).diff(dayjs(startTime), 'days');
   const hours = dayjs(endTime).diff(dayjs(startTime), 'hours') % 24;
   const minutes = dayjs(endTime).diff(dayjs(startTime), 'minute') % 60;
@@ -11,10 +11,10 @@ export function getDuration(startTime, endTime) {
   return formatDays + formatHours + formatMinutes;
 }
 
-export function sortPointByDay(pointA, pointB) {
+function sortPointsByDay(pointA, pointB) {
   return dayjs(pointA.dateFrom).diff(dayjs(pointB.dateFrom));
 }
-export function sortPointsByDuration(pointA, pointB) {
+function sortPointsByDuration(pointA, pointB) {
   const pointAMinutes = dayjs(pointA.dateTo).diff(
     dayjs(pointA.dateFrom),
     'minute'
@@ -32,7 +32,7 @@ export function sortPointsByDuration(pointA, pointB) {
   return 0;
 }
 
-export function sortPointsByPrice(pointA, pointB) {
+function sortPointsByPrice(pointA, pointB) {
   const diff = pointA.basePrice - pointB.basePrice;
   if (diff > 0) {
     return -1;
@@ -41,8 +41,8 @@ export function sortPointsByPrice(pointA, pointB) {
   }
   return 0;
 }
-export const isDatesEqual = (dateA, dateB) => dayjs(dateA).isSame(dateB);
-export const isDurationEqual = (pointA, pointB) => {
+const isDatesEqual = (dateA, dateB) => dayjs(dateA).isSame(dateB);
+const isDurationEqual = (pointA, pointB) => {
   const pointAMinutes = dayjs(pointA.dateTo).diff(
     dayjs(pointA.dateFrom),
     'minute'
@@ -54,13 +54,13 @@ export const isDurationEqual = (pointA, pointB) => {
   return pointAMinutes === pointBMinutes;
 };
 
-export const isPriceEqual = (priceA, priceB) => priceA === priceB;
-export const isEventPresent = (dateFrom, dateTo) =>
+const isPriceEqual = (priceA, priceB) => priceA === priceB;
+const isEventPresent = (dateFrom, dateTo) =>
   dayjs().diff(dateFrom) > 0 && dayjs().diff(dateTo) < 0;
-export const isEventPast = (dateTo) => dayjs().diff(dateTo) > 0;
-export const isEventFuture = (dateFrom) => dayjs().diff(dateFrom) < 0;
+const isEventPast = (dateTo) => dayjs().diff(dateTo) > 0;
+const isEventFuture = (dateFrom) => dayjs().diff(dateFrom) < 0;
 
-export const filterPoints = {
+const filterPoints = {
   [FilterType.EVERYTHING]: (points) => points,
   [FilterType.FUTURE]: (points) =>
     points.filter((point) => isEventFuture(point.dateFrom)),
@@ -68,4 +68,18 @@ export const filterPoints = {
     points.filter((point) => isEventPast(point.dateTo)),
   [FilterType.PRESENT]: (points) =>
     points.filter((point) => isEventPresent(point.dateFrom, point.dateTo)),
+};
+
+export {
+  filterPoints,
+  isPriceEqual,
+  isEventFuture,
+  isEventPast,
+  isEventPresent,
+  isDurationEqual,
+  isDatesEqual,
+  sortPointsByPrice,
+  sortPointsByDuration,
+  sortPointsByDay,
+  getDuration,
 };

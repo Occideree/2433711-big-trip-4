@@ -56,7 +56,7 @@ export default class PointPresenter {
       },
       onDeleteClick: this.#handleDeleteClick,
     });
-    if (prevPointComponent === null || prevPointEditComponent === null) {
+    if (!prevPointComponent || !prevPointEditComponent) {
       render(this.#pointComponent, this.#pointListContainer);
       return;
     }

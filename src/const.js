@@ -1,4 +1,4 @@
-export const TYPES = [
+const TYPES = [
   'taxi',
   'flight',
   'bus',
@@ -9,7 +9,7 @@ export const TYPES = [
   'sightseeing',
   'restaurant',
 ];
-export const EMPTY_POINT = {
+const EMPTY_POINT = {
   basePrice: 0,
   dateFrom: null,
   dateTo: null,
@@ -19,26 +19,27 @@ export const EMPTY_POINT = {
   type: 'flight',
 };
 
-export const FilterType = {
+const FilterType = {
   EVERYTHING: 'everything',
   FUTURE: 'future',
   PRESENT: 'present',
   PAST: 'past',
 };
-export const SortType = {
+const SortType = {
   DEFAULT: 'default',
   PRICE_SORT: 'price-sort',
   DURATION_SORT: 'duration-sort',
 };
-export const UserAction = {
+const UserAction = {
   UPDATE_POINT: 'UPDATE_POINT',
   ADD_POINT: 'ADD_POINT',
   DELETE_POINT: 'DELETE_POINT',
 };
 
-export const UpdateType = {
+const UpdateType = {
   PATCH: 'PATCH',
   MINOR: 'MINOR',
   MAJOR: 'MAJOR',
   INIT: 'INIT',
 };
+export { UpdateType, UserAction, SortType, FilterType, EMPTY_POINT, TYPES };

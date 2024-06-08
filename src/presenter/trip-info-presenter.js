@@ -7,7 +7,7 @@ export default class TripInfoPresenter {
   #points = null;
   #destinations;
   #offers;
-  #tripInfoView;
+  #tripInfoComponent;
   constructor({ container, points, destinations, offers }) {
     this.#container = container;
     this.#points = points;
@@ -22,8 +22,8 @@ export default class TripInfoPresenter {
   }
 
   #rerenderTripInfoView() {
-    const previousTripInfo = this.#tripInfoView;
-    this.#tripInfoView = new TripInfoView({
+    const previousTripInfo = this.#tripInfoComponent;
+    this.#tripInfoComponent = new TripInfoView({
       tripInfoData: buildTripInfo({
         points: this.#points.points,
         destinations: this.#destinations.destinations,
@@ -33,7 +33,7 @@ export default class TripInfoPresenter {
     if (previousTripInfo) {
       remove(previousTripInfo);
     }
-    render(this.#tripInfoView, this.#container, RenderPosition.AFTERBEGIN);
+    render(this.#tripInfoComponent, this.#container, RenderPosition.AFTERBEGIN);
   }
 
   #handleDataChange = () => {

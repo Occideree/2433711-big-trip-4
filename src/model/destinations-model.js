@@ -9,10 +9,6 @@ export default class DestinationsModel {
     return this.#destinations;
   }
 
-  getDestinationById(id) {
-    return this.#destinations.find((destination) => destination.id === id);
-  }
-
   async init() {
     try {
       const destinations = await this.#destinationsApiService.destinations;

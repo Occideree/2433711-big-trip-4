@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
-import { sortPointByDay } from './utils';
+import { sortPointsByDay } from './utils';
+
 export function buildTripInfo({ points, destinations, offers }) {
   const tripInfoData = {
     price: 0,
@@ -9,7 +10,7 @@ export function buildTripInfo({ points, destinations, offers }) {
   if (points.length === 0) {
     return tripInfoData;
   }
-  const sortedPoints = [...points.sort(sortPointByDay)];
+  const sortedPoints = [...points.sort(sortPointsByDay)];
   const pathDestinations = [];
   points.forEach((point) => {
     tripInfoData.price += point.basePrice;
@@ -57,12 +58,11 @@ function createTripPath(destinations) {
       ' &mdash; ... &mdash; ',
       destinations[destinations.length - 1]
     );
-  } else {
-    let path = '';
-    destinations.forEach(
-      (destination) => (path += destination.concat(' &mdash; '))
-    );
-
-    return path.slice(0, path.length - 9);
   }
+  let path = '';
+  destinations.forEach(
+    (destination) => (path += destination.concat(' &mdash; '))
+  );
+
+  return path.slice(0, path.length - 9);
 }
